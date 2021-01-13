@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -34,6 +35,8 @@ namespace API.Data
                     
             foreach (var user in users)
             {               
+              user.Photos.First().isApproved = true;
+
                 user.UserName = user.UserName.ToLower();
           
                await userManager.CreateAsync(user,"Password2");

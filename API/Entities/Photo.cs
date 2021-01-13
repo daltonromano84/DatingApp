@@ -10,6 +10,8 @@ namespace API.Entities
 
         public bool IsMain { get; set; }
 
+        public bool isApproved { get; set; }
+
         public string PublicId { get; set; }    
 
         public AppUser AppUser { get; set; }  

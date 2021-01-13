@@ -17,6 +17,7 @@ namespace API.Data
         {
         }
 
+         public DbSet<Photo> Photos { get; set; }
         public DbSet<UserLike> Likes { get; set; }
         public DbSet<Message> Messages { get; set; }
 
@@ -65,6 +66,8 @@ namespace API.Data
              .HasOne(s => s.Sender)
              .WithMany(l => l.MessagesSent)
              .OnDelete(DeleteBehavior.Restrict);
+
+             builder.Entity<Photo>().HasQueryFilter(p => p.isApproved);
 
              builder.ApplyUtcDateTimeConverter();
         }
