@@ -14,8 +14,8 @@ namespace API.Controllers
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly PhotoService _photoService;
-        public AdminController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork, PhotoService photoService)
+        private readonly IPhotoService _photoService;
+        public AdminController(UserManager<AppUser> userManager, IUnitOfWork unitOfWork, IPhotoService photoService)
         {
             _photoService = photoService;
             _unitOfWork = unitOfWork;
@@ -87,14 +87,18 @@ namespace API.Controllers
             return Ok();
         }
 
-        [Authorize(Policy = "ModeratePhotoRole")]
+         [Authorize(Policy = "ModeratePhotoRole")]
         [HttpPost("reject-photo/{photoId}")]
         public async Task<ActionResult> RejectPhoto(int photoId)
         {
             var photo = await _unitOfWork.PhotoRepository.GetPhotoById(photoId);
+
+            if (photo == null) return NotFound("Could not find photo");
+
             if (photo.PublicId != null)
             {
                 var result = await _photoService.DeletePhotoAsync(photo.PublicId);
+
                 if (result.Result == "ok")
                 {
                     _unitOfWork.PhotoRepository.RemovePhoto(photo);
@@ -104,7 +108,9 @@ namespace API.Controllers
             {
                 _unitOfWork.PhotoRepository.RemovePhoto(photo);
             }
+
             await _unitOfWork.Complete();
+
             return Ok();
         }
 
