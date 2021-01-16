@@ -32,7 +32,7 @@ namespace API.Extensions
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("9eUKwWadvzARavKac8sSMc4REp3CZM47")),
                         ValidateIssuer = false,
                         ValidateAudience = false
                     };
