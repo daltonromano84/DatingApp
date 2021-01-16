@@ -65,7 +65,7 @@ namespace API.Extensions
     //     connStr = $"Server={pgHost};Port={pgPort};User Id={pgUser};Password={pgPass};Database={pgDb};SSL Mode=Require;TrustServerCertificate=True";
     // }
 
-    connStr = $"Server=localhost;Port=5432;User Id=appuser;Password=password;Database=datingapp;SSL Mode=Require;TrustServerCertificate=True";
+    connStr = $"Server=localhost;Port=5432;User Id=appuser;Password=password;Database=datingapp";
 
     // Whether the connection string came from the local development configuration file
     // or from the environment variable from Heroku, use it to set up your DbContext.
